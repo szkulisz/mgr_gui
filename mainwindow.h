@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "serversettingsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,19 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QMenu *menuMenu;
+    QAction *settingsAct;
+    QAction *aboutAct;
+    QAction *exitAct;
+    ServerSettingsDialog *dialog = new ServerSettingsDialog();
+
+    void createActions();
+
+protected:
+
+private slots:
+//    void about();
+    void on_openSettings();
 };
 
 #endif // MAINWINDOW_H
