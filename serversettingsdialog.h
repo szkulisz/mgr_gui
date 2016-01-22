@@ -15,7 +15,9 @@ public:
     explicit ServerSettingsDialog(QWidget *parent = 0);
     ~ServerSettingsDialog();
     quint32 virtual getIPAddress();    // return the IP address as a 32-bit int
-    int virtual getServerPort() { return serverPortNumber; } // the port number
+    quint16 virtual getServerPort() { return serverPortNumber; } // the port number
+
+    void setServerPortNumber(int value);
 
 private slots:
     void on_buttonBox_accepted();
@@ -24,7 +26,7 @@ private slots:
 
 private:
     Ui::ServerSettingsDialog *ui;
-    int serverPortNumber;              // port number (default 5555)
+    quint16 serverPortNumber;              // port number (default 5555)
     int address[4];                    // IP address (default 192.168.7.2)
 };
 

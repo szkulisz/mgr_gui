@@ -8,5 +8,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
+    QObject::connect(&a, SIGNAL(aboutToQuit()), &w, SLOT(closing()));
     return a.exec();
 }

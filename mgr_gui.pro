@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = mgr_gui
 TEMPLATE = app
@@ -14,10 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    serversettingsdialog.cpp
+    serversettingsdialog.cpp \
+    mytcpsocket.cpp \
+    qcustomplot-source/qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
-    serversettingsdialog.h
+    serversettingsdialog.h \
+    mytcpsocket.h \
+    qcustomplot-source/qcustomplot.h
 
 FORMS    += mainwindow.ui \
     serversettingsdialog.ui
