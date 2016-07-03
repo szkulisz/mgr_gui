@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 
+class QCustomPlot;
+
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +26,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket socket;
+
+    void preparePlot(QCustomPlot *plot);
 };
 
 #endif // MAINWINDOW_H

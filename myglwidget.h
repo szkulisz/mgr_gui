@@ -3,6 +3,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <math.h>
 
 
 class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
@@ -19,7 +20,7 @@ public slots:
 
 private:
     double mXBase = 0, mYBase= 0, mXVertex = 0, mYVertex = -0.8, mPoleLength = 0.7;
-    double mAlpha = 0;
+    double mAlpha = M_PI;
     void initializeGL();
     void paintGL();
 

@@ -6,7 +6,7 @@
 
 QT       += core gui network opengl
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = mgr_gui
 TEMPLATE = app
@@ -14,13 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qcustomplot-source/qcustomplot.cpp \
-    myglwidget.cpp
+    myglwidget.cpp \
+    qcustomplot-source/qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
-    qcustomplot-source/qcustomplot.h \
-    myglwidget.h
+    myglwidget.h \
+    qcustomplot-source/qcustomplot.h
 
 FORMS    += mainwindow.ui
 
 CONFIG += c++11
+
+DISTFILES +=
