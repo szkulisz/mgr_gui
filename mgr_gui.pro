@@ -1,29 +1,22 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-01-09T21:38:05
+# Project created by QtCreator 2016-07-03T01:22:48
 #
 #-------------------------------------------------
 
 QT       += core gui network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = mgr_gui
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    serversettingsdialog.cpp \
-    mytcpsocket.cpp \
-    qcustomplot-source/qcustomplot.cpp
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    serversettingsdialog.h \
-    mytcpsocket.h \
-    qcustomplot-source/qcustomplot.h
+HEADERS  += mainwindow.h
 
-FORMS    += mainwindow.ui \
-    serversettingsdialog.ui
+FORMS    += mainwindow.ui
 
 CONFIG += c++11

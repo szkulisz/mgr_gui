@@ -3,11 +3,6 @@
 
 #include <QMainWindow>
 #include <QTcpSocket>
-#include <QHostAddress>
-#include <QString>
-#include "mytcpsocket.h"
-#include "serversettingsdialog.h"
-#include "qcustomplot-source/qcustomplot.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,39 +16,14 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_bConnect_clicked();
+    void onTcpDisconnection();
+    void onQuit();
+
 private:
     Ui::MainWindow *ui;
-    QMenu *menuMenu;
-    QAction *settingsAct;
-    QAction *aboutAct;
-    QAction *exitAct;
-    ServerSettingsDialog *dialog = new ServerSettingsDialog();
-    MyTcpSocket mySocket;
-    QTcpSocket *socket;
-    QHostAddress address;
-    int setpoint = 0;
-
-
-    void createActions();
-    void preparePlotChart(QCustomPlot* customPlot);
-    void preparePlotCV(QCustomPlot* customPlot);
-
-protected:
-
-private slots:
-//    void about();
-    void on_openSettings();
-    void on_bConnect_clicked();
-    void connected();
-    void disconnected();
-    void bytesWritten(qint64 bytes);
-    void readyRead();
-    void on_bStart_clicked();
-    void on_bSTOP_clicked();
-    void closing();
-    void on_bChange_clicked();
-    void on_hslSetpoint_valueChanged(int value);
-    void on_hslSetpoint_sliderReleased();
+    QTcpSocket socket;
 };
 
 #endif // MAINWINDOW_H
