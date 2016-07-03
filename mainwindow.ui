@@ -33,7 +33,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="setup">
      <attribute name="title">
@@ -86,13 +86,21 @@
        </item>
       </layout>
      </widget>
-     <zorder>layoutWidget</zorder>
-     <zorder>label</zorder>
     </widget>
     <widget class="QWidget" name="control">
      <attribute name="title">
       <string>Control</string>
      </attribute>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>-1</y>
+        <width>630</width>
+        <height>371</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
