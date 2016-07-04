@@ -17,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     preparePlot(ui->plotCV);
     preparePlot(ui->plotPendulum);
 
-    connect(&socket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
+    connect(&mSocket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
+    connect(&mSocket, SIGNAL(readyRead()), this, SLOT(onTcpReadyRead()));
 
 }
 
@@ -35,9 +36,9 @@ void MainWindow::on_bConnect_clicked()
         QMessageBox msgBox(QMessageBox::Critical, QString("Error!"), QString("Cannot resolve host name!"), QMessageBox::Ok);
         msgBox.exec();
     } else {
-        socket.connectToHost(info.addresses().first(), quint16(ui->tPortNumber->text().toInt()));
+        mSocket.connectToHost(info.addresses().first(), quint16(ui->tPortNumber->text().toInt()));
         ui->statusBar->showMessage("Connecting");
-        if (socket.waitForConnected(10000)) {
+        if (mSocket.waitForConnected(10000)) {
             ui->statusBar->showMessage("Connected");
             QMessageBox msgBox(QMessageBox::Information, QString("Success!"), QString("Connected with host!"), QMessageBox::Ok);
             msgBox.exec();
@@ -62,10 +63,17 @@ void MainWindow::onTcpDisconnection()
     qDebug() << "Disconnected";
 }
 
+void MainWindow::onTcpReadyRead()
+{
+    QString message = mSocket.readAll();
+    qDebug() << message;
+    ui->statusBar->showMessage(message);
+}
+
 void MainWindow::onQuit()
 {
-    disconnect(&socket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
-    connect(&socket, SIGNAL(disconnected()),&socket, SLOT(deleteLater()));
+    disconnect(&mSocket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
+    connect(&mSocket, SIGNAL(disconnected()),&mSocket, SLOT(deleteLater()));
 }
 
 void MainWindow::preparePlot(QCustomPlot *plot)
@@ -91,4 +99,9 @@ void MainWindow::preparePlot(QCustomPlot *plot)
         plot->xAxis->setLabel("Time, s");
     }
     plot->axisRect()->insetLayout()->setInsetAlignment(0,Qt::AlignTop|Qt::AlignLeft);
+}
+
+void MainWindow::on_bControl_clicked()
+{
+    mSocket.write("ELO");
 }

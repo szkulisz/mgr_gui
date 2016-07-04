@@ -21,11 +21,14 @@ public:
 private slots:
     void on_bConnect_clicked();
     void onTcpDisconnection();
+    void onTcpReadyRead();
     void onQuit();
+
+    void on_bControl_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QTcpSocket socket;
+    QTcpSocket mSocket;
 
     void preparePlot(QCustomPlot *plot);
 };

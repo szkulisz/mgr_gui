@@ -36,7 +36,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="setup">
      <attribute name="title">
@@ -731,8 +731,6 @@
         </item>
        </layout>
       </widget>
-      <zorder>layoutWidget</zorder>
-      <zorder>layoutWidget</zorder>
      </widget>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -1301,20 +1299,6 @@
        <string>Accept new parameters</string>
       </property>
      </widget>
-     <zorder>glAnimation</zorder>
-     <zorder>plotCart</zorder>
-     <zorder>plotPendulum</zorder>
-     <zorder>plotCV</zorder>
-     <zorder>horizontalSlider</zorder>
-     <zorder>layoutWidget_8</zorder>
-     <zorder>bControl</zorder>
-     <zorder>bStart</zorder>
-     <zorder>frame</zorder>
-     <zorder>frame_2</zorder>
-     <zorder>frame_2</zorder>
-     <zorder>frame_3</zorder>
-     <zorder>bNewParameters</zorder>
-     <zorder>bNewParameters</zorder>
     </widget>
    </widget>
   </widget>
