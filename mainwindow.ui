@@ -208,7 +208,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_18">
          <item>
-          <widget class="QDoubleSpinBox" name="sbHzActual_2">
+          <widget class="QDoubleSpinBox" name="sbCartPosActual">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -238,10 +238,10 @@
             <number>3</number>
            </property>
            <property name="minimum">
-            <double>-0.500000000000000</double>
+            <double>-0.250000000000000</double>
            </property>
            <property name="maximum">
-            <double>0.500000000000000</double>
+            <double>0.250000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.000000000000000</double>
@@ -252,7 +252,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="sbHzNew_2">
+          <widget class="QDoubleSpinBox" name="sbCartPosNew">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -278,10 +278,10 @@
             <number>3</number>
            </property>
            <property name="minimum">
-            <double>-0.500000000000000</double>
+            <double>-0.250000000000000</double>
            </property>
            <property name="maximum">
-            <double>0.500000000000000</double>
+            <double>0.250000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.000000000000000</double>
@@ -296,6 +296,9 @@
       </layout>
      </widget>
      <widget class="QPushButton" name="bControl">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>850</x>
@@ -345,7 +348,7 @@
          <x>10</x>
          <y>10</y>
          <width>221</width>
-         <height>191</height>
+         <height>189</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -645,7 +648,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLabel" name="label_14">
             <property name="text">
@@ -654,9 +657,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sbCartNActual">
+           <widget class="QSpinBox" name="sbCartNActual">
             <property name="enabled">
              <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
@@ -676,27 +685,21 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>2</number>
-            </property>
-            <property name="minimum">
-             <double>-1000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-            <property name="value">
-             <double>0.000000000000000</double>
+             <number>100000</number>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sbCartNNew">
+           <widget class="QSpinBox" name="sbCartNNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -710,20 +713,8 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>2</number>
-            </property>
-            <property name="minimum">
-             <double>-1000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-            <property name="value">
-             <double>0.000000000000000</double>
+             <number>100000</number>
             </property>
            </widget>
           </item>
@@ -747,16 +738,16 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget_6">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
          <width>221</width>
-         <height>191</height>
+         <height>189</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="label_19">
           <property name="font">
@@ -1053,7 +1044,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLabel" name="label_26">
             <property name="text">
@@ -1062,9 +1053,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sbPendNActual">
+           <widget class="QSpinBox" name="sbPendNActual">
             <property name="enabled">
              <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
@@ -1084,27 +1087,27 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>2</number>
-            </property>
-            <property name="minimum">
-             <double>-1000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-            <property name="value">
-             <double>0.000000000000000</double>
+             <number>100000</number>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sbPendNNew">
+           <widget class="QSpinBox" name="sbPendNNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -1118,20 +1121,8 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>2</number>
-            </property>
-            <property name="minimum">
-             <double>-1000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-            <property name="value">
-             <double>0.000000000000000</double>
+             <number>100000</number>
             </property>
            </widget>
           </item>
@@ -1155,18 +1146,24 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget_7">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>231</width>
-         <height>91</height>
+         <width>221</width>
+         <height>84</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QLabel" name="label_27">
+          <property name="minimumSize">
+           <size>
+            <width>219</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <pointsize>14</pointsize>
@@ -1201,9 +1198,15 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_16">
           <item>
-           <widget class="QDoubleSpinBox" name="sbHzActual">
+           <widget class="QSpinBox" name="sbHzActual">
             <property name="enabled">
              <bool>true</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>25</height>
+             </size>
             </property>
             <property name="autoFillBackground">
              <bool>true</bool>
@@ -1227,27 +1230,24 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>1</number>
-            </property>
-            <property name="minimum">
-             <double>-1000000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>1.000000000000000</double>
+             <number>100000</number>
             </property>
             <property name="value">
-             <double>1000.000000000000000</double>
+             <number>0</number>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="sbHzNew">
+           <widget class="QSpinBox" name="sbHzNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>27</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -1261,20 +1261,11 @@
             <property name="keyboardTracking">
              <bool>true</bool>
             </property>
-            <property name="decimals">
-             <number>1</number>
-            </property>
-            <property name="minimum">
-             <double>-1000000.000000000000000</double>
-            </property>
             <property name="maximum">
-             <double>1000000.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>1.000000000000000</double>
+             <number>100000</number>
             </property>
             <property name="value">
-             <double>1000.000000000000000</double>
+             <number>0</number>
             </property>
            </widget>
           </item>

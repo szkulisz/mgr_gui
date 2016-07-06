@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTcpSocket>
+#include <QThread>
+#include <QMessageBox>
 
 class QCustomPlot;
 
@@ -23,14 +25,19 @@ private slots:
     void onTcpDisconnection();
     void onTcpReadyRead();
     void onQuit();
+    void onMsgBoxAccept();
 
     void on_bControl_clicked();
 
 private:
     Ui::MainWindow *ui;
     QTcpSocket mSocket;
+    const int NO_ADRESS = -20;
+    const int BROADCAST_ADRESS = -10;
+    int mMyAdress = NO_ADRESS;
 
     void preparePlot(QCustomPlot *plot);
+    void showMsgBox(QMessageBox::StandardButton button, QString title, QString text, QString info, QMessageBox::Icon icon);
 };
 
 #endif // MAINWINDOW_H
