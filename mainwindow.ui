@@ -255,7 +255,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QDoubleSpinBox" name="sbCartPosNew">
+          <widget class="QDoubleSpinBox" name="sbCartSetpoint">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -1277,7 +1277,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Accept new parameters</string>
+       <string>Send new parameters</string>
       </property>
      </widget>
      <widget class="QFrame" name="frame_4">

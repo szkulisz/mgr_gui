@@ -53,7 +53,10 @@ void MainWindow::onTcpDisconnection()
     ui->statusBar->showMessage("Disconnected");
     showMsgBox(QMessageBox::Ok, QString("Error!"),  QString("Connection lost!"), NULL, QMessageBox::Critical);
     ui->bConnect->setEnabled(true);
+    mControllerTime = 0;
+    onControllerTimerTimeout();
     resetGuiSettings();
+    ui->lControlInfo->setText("Disconnected");
     qDebug() << "Disconnected";
 }
 
@@ -230,6 +233,9 @@ void MainWindow::decodeTcpMessage(QString message)
                 }
             }
 
+        } else if (tokens.at(2).compare("SETPOINT") == 0) {
+            ui->sbCartSetpoint->setValue(tokens.at(3).toFloat());
+            ui->hslCartPosition->setValue(tokens.at(3).toFloat()*100);
         }
 
     }
@@ -269,5 +275,22 @@ void MainWindow::on_bStart_clicked()
 
 void MainWindow::on_bProlong_clicked()
 {
+    prolongControllerTime();
+}
+
+void MainWindow::on_bNewParameters_clicked()
+{
+    QString message = QString("ADDR %1 PARAMS %2 %3 %4 %5 %6 %7 %8 %9 %10 ").arg(mMyAdress).
+            arg(ui->sbCartKpNew->value()).arg(ui->sbCartKiNew->value()).arg(ui->sbCartKdNew->value()).arg(ui->sbCartNNew->value()).
+            arg(ui->sbPendKpNew->value()).arg(ui->sbPendKiNew->value()).arg(ui->sbPendKdNew->value()).arg(ui->sbPendNNew->value()).
+            arg(ui->sbHzNew->value());
+    mSocket.write(message.toLocal8Bit());
+    prolongControllerTime();
+}
+
+void MainWindow::on_hslCartPosition_sliderReleased()
+{
+    QString message = QString("ADDR %1 SETPOINT %2 ").arg(mMyAdress).arg(ui->hslCartPosition->value());
+    mSocket.write(message.toLocal8Bit());
     prolongControllerTime();
 }

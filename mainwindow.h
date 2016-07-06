@@ -45,6 +45,10 @@ private slots:
 
     void on_bProlong_clicked();
 
+    void on_bNewParameters_clicked();
+
+    void on_hslCartPosition_sliderReleased();
+
 private:
     const int NO_ADRESS = -20;
     const int BROADCAST_ADRESS = -10;
