@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     preparePlot(ui->plotCV);
     preparePlot(ui->plotPendulum);
 
+    connect(&mControllerTimer, SIGNAL(timeout()), this, SLOT(onControllerTimerTimeout()));
     connect(&mSocket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
     connect(&mSocket, SIGNAL(readyRead()), this, SLOT(onTcpReadyRead()));
 
@@ -74,6 +75,18 @@ void MainWindow::onMsgBoxAccept()
 
 }
 
+void MainWindow::onControllerTimerTimeout()
+{
+    if (mControllerTime) {
+        ui->lControlInfo->setText("You are controlling pendulum for " +  QString::number(mControllerTime--) + " sec");
+    } else {
+        mControllerTimer.stop();
+        ui->lControlInfo->setText("");
+        ui->bControl->setEnabled(false);
+        ui->bProlong->setEnabled(false);
+    }
+}
+
 void MainWindow::preparePlot(QCustomPlot *plot)
 {
     plot->setLocale(locale());
@@ -124,8 +137,11 @@ void MainWindow::resetGuiSettings()
     ui->sbHzNew->setEnabled(false);
     ui->hslCartPosition->setEnabled(false);
     ui->bControl->setEnabled(false);
+    ui->bControl->setText("TAKE UP CONTROL");
     ui->bNewParameters->setEnabled(false);
     ui->bStart->setEnabled(false);
+    ui->bProlong->setEnabled(false);
+    ui->lControlInfo->setText("");
 }
 
 void MainWindow::decodeTcpMessage(QString message)
@@ -143,9 +159,11 @@ void MainWindow::decodeTcpMessage(QString message)
             QString informativeText;
             if (tokens.at(4).toInt() == 0) {
                 ui->bControl->setEnabled(true);
+                ui->lControlInfo->setText("Pendulum is not controlled");
                 informativeText = "You can take control over the pendulum";
             } else {
                 ui->bControl->setEnabled(false);
+                ui->lControlInfo->setText("Someone is controlling the pendulum");
                 informativeText = "Someone is already controlling the pendulum";
             }
             showMsgBox(QMessageBox::Ok, QString("Success!"), QString("Connected with host!"), informativeText, QMessageBox::Information);
@@ -174,8 +192,7 @@ void MainWindow::decodeTcpMessage(QString message)
             ui->sbHzNew->setValue(tokens.at(11).toInt());
 
         } else if (tokens.at(2).compare("CONTROL") == 0) {
-            if (tokens.at(3).toInt() == TAKE_CONTROL_SUCCESS) {
-                showMsgBox(QMessageBox::Ok, QString("Success!"), QString("You have control over the pendulum for 60 seconds"), NULL, QMessageBox::Information);
+            if (tokens.at(3).toInt() == ControlEnum::TakeSuccess) {
                 ui->sbCartKpNew->setEnabled(true);
                 ui->sbCartKiNew->setEnabled(true);
                 ui->sbCartKdNew->setEnabled(true);
@@ -189,8 +206,28 @@ void MainWindow::decodeTcpMessage(QString message)
                 ui->bControl->setEnabled(true);
                 ui->bNewParameters->setEnabled(true);
                 ui->bStart->setEnabled(true);
-            } else {
+                ui->bProlong->setEnabled(true);
+                mIsController = true;
+                mControllerTime = 60;
+                onControllerTimerTimeout();
+                mControllerTimer.start(1000);
+            } else if (tokens.at(3).toInt() == ControlEnum::TakeFail) {
                 showMsgBox(QMessageBox::Ok, QString("Fail!"), QString("Someone was faster..."), NULL, QMessageBox::Information);
+                ui->lControlInfo->setText("Someone is controlling the pendulum");
+                ui->bControl->setEnabled(false);
+            } else if (tokens.at(3).toInt() == ControlEnum::Taken) {
+                if (!mIsController) {
+                    ui->lControlInfo->setText("Someone is controlling the pendulum");
+                    ui->bControl->setEnabled(false);
+                }
+            } else if (tokens.at(3).toInt() == ControlEnum::Free) {
+                resetGuiSettings();
+                ui->bControl->setEnabled(true);
+                ui->lControlInfo->setText("Pendulum is not controlled");
+                if (mIsController) {
+                    mIsController = false;
+                    mControllerTimer.stop();
+                }
             }
 
         }
@@ -202,7 +239,35 @@ void MainWindow::decodeTcpMessage(QString message)
 
 }
 
+void MainWindow::prolongControllerTime()
+{
+    mControllerTime = 60;
+    onControllerTimerTimeout();
+    mControllerTimer.stop();
+    mControllerTimer.start(1000);
+    QString message = QString("ADDR %1 CONTROL %2 ").arg(mMyAdress).arg(ControlEnum::Prolong);
+    mSocket.write(message.toLocal8Bit());
+}
+
 void MainWindow::on_bControl_clicked()
 {
-    mSocket.write(QString("ADDR " + QString::number(mMyAdress) + " CONTROL 1 ").toLocal8Bit());
+    if (ui->bControl->text().compare("TAKE UP CONTROL") == 0) {
+        QString message = QString("ADDR %1 CONTROL %2 ").arg(mMyAdress).arg(ControlEnum::Take);
+        mSocket.write(message.toLocal8Bit());
+        ui->bControl->setText("LET OFF CONTROL");
+    } else {
+        QString message = QString("ADDR %1 CONTROL %2 ").arg(mMyAdress).arg(ControlEnum::GiveUp);
+        mSocket.write(message.toLocal8Bit());
+        ui->bControl->setText("TAKE UP CONTROL");
+    }
+}
+
+void MainWindow::on_bStart_clicked()
+{
+
+}
+
+void MainWindow::on_bProlong_clicked()
+{
+    prolongControllerTime();
 }

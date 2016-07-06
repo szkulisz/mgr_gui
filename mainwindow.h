@@ -5,8 +5,19 @@
 #include <QTcpSocket>
 #include <QThread>
 #include <QMessageBox>
+#include <QTimer>
 
 class QCustomPlot;
+
+enum ControlEnum {
+    Taken,
+    Free,
+    Take,
+    TakeSuccess,
+    TakeFail,
+    GiveUp,
+    Prolong
+};
 
 namespace Ui {
 class MainWindow;
@@ -26,23 +37,30 @@ private slots:
     void onTcpReadyRead();
     void onQuit();
     void onMsgBoxAccept();
+    void onControllerTimerTimeout();
 
     void on_bControl_clicked();
+
+    void on_bStart_clicked();
+
+    void on_bProlong_clicked();
 
 private:
     const int NO_ADRESS = -20;
     const int BROADCAST_ADRESS = -10;
-    const int TAKE_CONTROL_SUCCESS = 3;
-    const int TAKE_CONTROL_FAIL = 4;
 
     Ui::MainWindow *ui;
     QTcpSocket mSocket;
     int mMyAdress = NO_ADRESS;    
+    QTimer mControllerTimer;
+    int mControllerTime;
+    bool mIsController = false;
 
     void preparePlot(QCustomPlot *plot);
     void showMsgBox(QMessageBox::StandardButton button, QString title, QString text, QString info, QMessageBox::Icon icon);
     void resetGuiSettings();
     void decodeTcpMessage(QString message);
+    void prolongControllerTime();
 };
 
 #endif // MAINWINDOW_H

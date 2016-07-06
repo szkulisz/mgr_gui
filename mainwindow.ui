@@ -298,36 +298,23 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="bControl">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>850</x>
-        <y>630</y>
-        <width>181</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>TAKE UP CONTROL</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="bStart">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>1030</x>
-        <y>630</y>
-        <width>191</width>
+        <x>530</x>
+        <y>660</y>
+        <width>251</width>
         <height>41</height>
        </rect>
       </property>
       <property name="text">
        <string>START</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QFrame" name="frame">
@@ -345,7 +332,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget_1">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -741,7 +728,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget_2">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1149,7 +1136,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget_3">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1293,28 +1280,106 @@
        <string>Accept new parameters</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="bControl_2">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
+     <widget class="QFrame" name="frame_4">
       <property name="geometry">
        <rect>
-        <x>850</x>
-        <y>670</y>
-        <width>181</width>
-        <height>31</height>
+        <x>880</x>
+        <y>620</y>
+        <width>301</width>
+        <height>81</height>
        </rect>
       </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">selection-color: rgb(212, 140, 30);</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
-      <property name="text">
-       <string>PROLONG</string>
-      </property>
+      <widget class="QPushButton" name="bProlong">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>30</y>
+         <width>101</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>PROLONG</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="bControl">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>181</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TAKE UP CONTROL</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lControlInfo">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>281</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
      </widget>
+     <zorder>frame_4</zorder>
+     <zorder>glAnimation</zorder>
+     <zorder>plotCart</zorder>
+     <zorder>plotPendulum</zorder>
+     <zorder>plotCV</zorder>
+     <zorder>hslCartPosition</zorder>
+     <zorder>layoutWidget_8</zorder>
+     <zorder>bStart</zorder>
+     <zorder>frame</zorder>
+     <zorder>frame_2</zorder>
+     <zorder>frame_3</zorder>
+     <zorder>bNewParameters</zorder>
     </widget>
    </widget>
   </widget>
