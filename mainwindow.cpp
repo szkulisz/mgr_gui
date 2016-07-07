@@ -54,6 +54,7 @@ void MainWindow::onTcpDisconnection()
     showMsgBox(QMessageBox::Ok, QString("Error!"),  QString("Connection lost!"), NULL, QMessageBox::Critical);
     ui->bConnect->setEnabled(true);
     mControllerTime = 0;
+    mMyAdress = NO_ADRESS;
     onControllerTimerTimeout();
     resetGuiSettings();
     ui->lControlInfo->setText("Disconnected");
@@ -69,6 +70,7 @@ void MainWindow::onTcpReadyRead()
 
 void MainWindow::onQuit()
 {
+
     disconnect(&mSocket, SIGNAL(disconnected()),this, SLOT(onTcpDisconnection()));
     connect(&mSocket, SIGNAL(disconnected()),&mSocket, SLOT(deleteLater()));
 }
@@ -143,6 +145,7 @@ void MainWindow::resetGuiSettings()
     ui->bControl->setText("TAKE UP CONTROL");
     ui->bNewParameters->setEnabled(false);
     ui->bStart->setEnabled(false);
+    ui->bStart->setText("START");
     ui->bProlong->setEnabled(false);
     ui->lControlInfo->setText("");
 }
@@ -236,6 +239,12 @@ void MainWindow::decodeTcpMessage(QString message)
         } else if (tokens.at(2).compare("SETPOINT") == 0) {
             ui->sbCartSetpoint->setValue(tokens.at(3).toFloat());
             ui->hslCartPosition->setValue(tokens.at(3).toFloat()*100);
+
+        } else if (tokens.at(2).compare("STARTED") == 0) {
+            ui->bStart->setText("STOP");
+
+        } else if (tokens.at(2).compare("STOPPED") == 0) {
+            ui->bStart->setText("START");
         }
 
     }
@@ -255,6 +264,14 @@ void MainWindow::prolongControllerTime()
     mSocket.write(message.toLocal8Bit());
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (mIsController) {
+        QString message = QString("ADDR %1 CONTROL %2 ").arg(mMyAdress).arg(ControlEnum::GiveUp);
+        mSocket.write(message.toLocal8Bit());
+    }
+}
+
 void MainWindow::on_bControl_clicked()
 {
     if (ui->bControl->text().compare("TAKE UP CONTROL") == 0) {
@@ -270,7 +287,14 @@ void MainWindow::on_bControl_clicked()
 
 void MainWindow::on_bStart_clicked()
 {
-
+    if (ui->bStart->text().compare("START") == 0) {
+        QString message = QString("ADDR %1 START ").arg(mMyAdress);
+        mSocket.write(message.toLocal8Bit());
+    } else {
+        QString message = QString("ADDR %1 STOP ").arg(mMyAdress);
+        mSocket.write(message.toLocal8Bit());
+    }
+    prolongControllerTime();
 }
 
 void MainWindow::on_bProlong_clicked()
@@ -293,4 +317,10 @@ void MainWindow::on_hslCartPosition_sliderReleased()
     QString message = QString("ADDR %1 SETPOINT %2 ").arg(mMyAdress).arg(ui->hslCartPosition->value());
     mSocket.write(message.toLocal8Bit());
     prolongControllerTime();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString message = QString("ADDR %1 DUPA ");
+    mSocket.write(message.toLocal8Bit());
 }

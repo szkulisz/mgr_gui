@@ -49,6 +49,8 @@ private slots:
 
     void on_hslCartPosition_sliderReleased();
 
+    void on_pushButton_clicked();
+
 private:
     const int NO_ADRESS = -20;
     const int BROADCAST_ADRESS = -10;
@@ -65,6 +67,7 @@ private:
     void resetGuiSettings();
     void decodeTcpMessage(QString message);
     void prolongControllerTime();
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // MAINWINDOW_H
