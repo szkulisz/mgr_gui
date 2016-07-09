@@ -26,3 +26,5 @@ FORMS    += mainwindow.ui
 CONFIG += c++11
 
 DISTFILES +=
+
+LIBS += opengl32.lib

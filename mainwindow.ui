@@ -310,6 +310,9 @@
         <height>41</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">selection-color: rgb(255, 170, 0);</string>
+      </property>
       <property name="text">
        <string>START</string>
       </property>
@@ -396,6 +399,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -435,6 +444,12 @@
            <widget class="QDoubleSpinBox" name="sbCartKpNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -481,6 +496,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -520,6 +541,12 @@
            <widget class="QDoubleSpinBox" name="sbCartKiNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -566,6 +593,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -605,6 +638,12 @@
            <widget class="QDoubleSpinBox" name="sbCartKdNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -792,6 +831,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -831,6 +876,12 @@
            <widget class="QDoubleSpinBox" name="sbPendKpNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -877,6 +928,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -916,6 +973,12 @@
            <widget class="QDoubleSpinBox" name="sbPendKiNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -962,6 +1025,12 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>86</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(248, 235, 194);</string>
             </property>
@@ -1001,6 +1070,12 @@
            <widget class="QDoubleSpinBox" name="sbPendKdNew">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>90</width>
+              <height>0</height>
+             </size>
             </property>
             <property name="frame">
              <bool>true</bool>
@@ -1323,7 +1398,7 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">background-color: rgb(255, 170, 0);</string>
        </property>
        <property name="text">
         <string>PROLONG</string>
@@ -1335,7 +1410,7 @@
         <bool>true</bool>
        </property>
        <property name="flat">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QPushButton" name="bControl">

@@ -3,7 +3,6 @@
 #include <QHostInfo>
 #include <QHostAddress>
 #include <QTimer>
-#include <unistd.h>
 #include "qcustomplot-source/qcustomplot.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -30,14 +29,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_bConnect_clicked()
 {
+    ui->statusBar->showMessage("Connecting");
     QHostInfo info = QHostInfo::fromName(ui->tHostName->text());
     qDebug() << info.hostName();
     qDebug() << info.addresses();
     if (info.addresses().isEmpty()) {
+        ui->statusBar->showMessage("Disconnected");
         showMsgBox(QMessageBox::Ok, QString("Error!"),  QString("Cannot resolve host name!"), NULL, QMessageBox::Critical);
     } else {
+//        ui->statusBar->showMessage("Connecting");
         mSocket.connectToHost(info.addresses().first(), quint16(ui->tPortNumber->text().toInt()));
-        ui->statusBar->showMessage("Connecting");
         if (mSocket.waitForConnected(10000)) {
             ui->statusBar->showMessage("Connected");
         } else {

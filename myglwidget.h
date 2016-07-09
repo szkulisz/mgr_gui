@@ -3,6 +3,7 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 
