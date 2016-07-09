@@ -61,10 +61,12 @@ private:
     QTimer mControllerTimer;
     int mControllerTime;
     bool mIsController = false;
+    bool mIsStarted = false;
 
     void preparePlot(QCustomPlot *plot);
     void showMsgBox(QMessageBox::StandardButton button, QString title, QString text, QString info, QMessageBox::Icon icon);
-    void resetGuiSettings();
+    void initGuiSettings();
+    void resetGui();
     void decodeTcpMessage(QString message);
     void prolongControllerTime();
     void closeEvent(QCloseEvent *event);

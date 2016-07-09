@@ -56,8 +56,9 @@ void MainWindow::onTcpDisconnection()
     mControllerTime = 0;
     mMyAdress = NO_ADRESS;
     onControllerTimerTimeout();
-    resetGuiSettings();
+    initGuiSettings();
     ui->lControlInfo->setText("Disconnected");
+    ui->bStart->setText("START");
     qDebug() << "Disconnected";
 }
 
@@ -129,7 +130,7 @@ void MainWindow::showMsgBox(QMessageBox::StandardButton button, QString title, Q
     msgBox->open(this,SLOT(onMsgBoxAccept()));
 }
 
-void MainWindow::resetGuiSettings()
+void MainWindow::initGuiSettings()
 {
     ui->sbCartKpNew->setEnabled(false);
     ui->sbCartKiNew->setEnabled(false);
@@ -145,9 +146,22 @@ void MainWindow::resetGuiSettings()
     ui->bControl->setText("TAKE UP CONTROL");
     ui->bNewParameters->setEnabled(false);
     ui->bStart->setEnabled(false);
-    ui->bStart->setText("START");
+    if (mIsStarted)
+        ui->bStart->setText("STOP");
+    else
+        ui->bStart->setText("START");
     ui->bProlong->setEnabled(false);
     ui->lControlInfo->setText("");
+}
+
+void MainWindow::resetGui()
+{
+    ui->plotCart->graph(0)->clearData();
+    ui->plotCart->graph(1)->clearData();
+    ui->plotCV->graph(0)->clearData();
+    ui->plotPendulum->graph(0)->clearData();
+    ui->glAnimation->setNewPosition(M_PI,0,0);
+    ui->glAnimation->update();
 }
 
 void MainWindow::decodeTcpMessage(QString message)
@@ -171,6 +185,13 @@ void MainWindow::decodeTcpMessage(QString message)
                 ui->bControl->setEnabled(false);
                 ui->lControlInfo->setText("Someone is controlling the pendulum");
                 informativeText = "Someone is already controlling the pendulum";
+            }
+            if (tokens.at(6).toInt() == 0) {
+                ui->bStart->setText("START");
+                mIsStarted = false;
+            } else {
+                ui->bStart->setText("STOP");
+                mIsStarted = true;
             }
             showMsgBox(QMessageBox::Ok, QString("Success!"), QString("Connected with host!"), informativeText, QMessageBox::Information);
             ui->bConnect->setEnabled(false);
@@ -227,7 +248,7 @@ void MainWindow::decodeTcpMessage(QString message)
                     ui->bControl->setEnabled(false);
                 }
             } else if (tokens.at(3).toInt() == ControlEnum::Free) {
-                resetGuiSettings();
+                initGuiSettings();
                 ui->bControl->setEnabled(true);
                 ui->lControlInfo->setText("Pendulum is not controlled");
                 if (mIsController) {
@@ -242,9 +263,26 @@ void MainWindow::decodeTcpMessage(QString message)
 
         } else if (tokens.at(2).compare("STARTED") == 0) {
             ui->bStart->setText("STOP");
+            mIsStarted = true;
+            resetGui();
 
         } else if (tokens.at(2).compare("STOPPED") == 0) {
             ui->bStart->setText("START");
+            mIsStarted = false;
+
+        } else if (tokens.at(2).compare("STATUS") == 0) {
+            ui->plotCart->graph(0)->addData(tokens.at(3).toDouble(),tokens.at(4).toDouble());
+            ui->plotCart->graph(1)->addData(tokens.at(3).toDouble(),tokens.at(5).toDouble());
+            ui->plotPendulum->graph(0)->addData(tokens.at(3).toDouble(),tokens.at(6).toDouble());
+            ui->plotCV->graph(0)->addData(tokens.at(3).toDouble(),tokens.at(7).toDouble());
+            ui->plotCart->rescaleAxes();
+            ui->plotPendulum->rescaleAxes();
+            ui->plotCV->rescaleAxes();
+            ui->plotCart->replot();
+            ui->plotPendulum->replot(QCustomPlot::rpImmediate);
+            ui->plotCV->replot();
+            ui->glAnimation->setNewPosition(tokens.at(6).toDouble(),tokens.at(4).toDouble(),0);
+            ui->glAnimation->update();
         }
 
     }
