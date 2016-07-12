@@ -1443,19 +1443,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>820</x>
-        <y>600</y>
-        <width>99</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>PushButton</string>
-      </property>
-     </widget>
      <zorder>frame_4</zorder>
      <zorder>glAnimation</zorder>
      <zorder>plotCart</zorder>
@@ -1468,7 +1455,6 @@
      <zorder>frame_2</zorder>
      <zorder>frame_3</zorder>
      <zorder>bNewParameters</zorder>
-     <zorder>pushButton</zorder>
     </widget>
    </widget>
   </widget>

@@ -163,6 +163,9 @@ void MainWindow::resetGui()
     ui->plotPendulum->graph(0)->clearData();
     ui->glAnimation->setNewPosition(M_PI,0,0);
     ui->glAnimation->update();
+    ui->hslCartPosition->setValue(0);
+    ui->sbCartPosActual->setValue(0);
+    ui->sbCartSetpoint->setValue(0);
 }
 
 void MainWindow::decodeTcpMessage(QString message)
@@ -172,7 +175,7 @@ void MainWindow::decodeTcpMessage(QString message)
     if ((mMyAdress == NO_ADRESS) ||
             (tokens.at(1).toInt() == mMyAdress) ||
             (tokens.at(1).toInt() == BROADCAST_ADRESS)) {
-        ui->statusBar->showMessage(message);
+//        ui->statusBar->showMessage(message);
 
         if (tokens.at(2).compare("CONNECTED") == 0) {
             if (mMyAdress == NO_ADRESS)
@@ -284,6 +287,7 @@ void MainWindow::decodeTcpMessage(QString message)
             ui->plotCV->replot();
             ui->glAnimation->setNewPosition(tokens.at(6).toDouble(),tokens.at(4).toDouble(),0);
             ui->glAnimation->update();
+            ui->sbCartPosActual->setValue(tokens.at(4).toDouble());
         }
 
     }
@@ -356,10 +360,4 @@ void MainWindow::on_hslCartPosition_sliderReleased()
     QString message = QString("ADDR %1 SETPOINT %2 ").arg(mMyAdress).arg(ui->hslCartPosition->value());
     mSocket.write(message.toLocal8Bit());
     prolongControllerTime();
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    QString message = QString("ADDR %1 DUPA ");
-    mSocket.write(message.toLocal8Bit());
 }
